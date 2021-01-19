@@ -1,0 +1,24 @@
+name: Deploy function
+on:
+  push:
+    branches:
+      - master
+    paths:
+      - 'function-a/**'
+
+jobs:
+  deploy:
+    name: Deploy Functions
+    runs-on: ubuntu-latest
+    env:
+      ENTRY_POINT: Main
+    steps:
+      - uses: actions/checkout@v2
+      - uses: GoogleCloudPlatform/github-actions/setup-gcloud@master
+        with:
+          project_id: soshi-test-project
+          service_account_email: soshi-cloud-function-service@soshi-test-project.iam.gserviceaccount.com
+          service_account_key: ${{ secrets.CLOUD_FUNCTION_SECRET }}
+      - name: Deploy Functions
+        run: |
+          gcloud functions deploy function.go --source ../../function-a  --entry-point ${ENTRY_POINT}  --env-vars-file=../../.env.yaml --trigger-http --allow-unauthenticated  --runtime go111
