@@ -2,7 +2,7 @@ name: Deploy function
 on:
   push:
     branches:
-      - master
+      - main
     paths:
       - 'function-a/**'
 
