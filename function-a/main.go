@@ -42,7 +42,7 @@ func Main(w http.ResponseWriter, r *http.Request) {
 	if err := json.NewDecoder(r.Body).Decode(&d); err != nil {
 		switch err {
 		case io.EOF:
-			fmt.Fprint(w, "テスト 19:55:00")
+			fmt.Fprint(w, "テスト 19:56:00")
 			fmt.Fprint(w, config.env)
 			fmt.Fprint(w, config.db)
 			fmt.Fprint(w, config.dbUser)
