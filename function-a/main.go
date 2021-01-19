@@ -1,4 +1,3 @@
-// Package p contains an HTTP Cloud Function.
 package p
 
 import (
@@ -23,7 +22,7 @@ type environment struct {
 var config *environment
 
 func init() {
-	err := godotenv.Load(fmt.Sprintf("../%s.env", os.Getenv("GO_ENV")))
+	err := godotenv.Load(fmt.Sprintf("../%s.env.yml", os.Getenv("GO_ENV")))
 	if err != nil {
 		// .env読めなかった場合の処理
 	}
@@ -44,10 +43,10 @@ func Main(w http.ResponseWriter, r *http.Request) {
 		switch err {
 		case io.EOF:
 			fmt.Fprint(w, "あああああテスト!")
-			fmt.Println(config.env)
-			fmt.Println(config.db)
-			fmt.Println(config.dbUser)
-			fmt.Println(config.dbPass)
+			fmt.Fprint(w, config.env)
+			fmt.Fprint(w, config.db)
+			fmt.Fprint(w, config.dbUser)
+			fmt.Fprint(w, config.dbPass)
 			return
 		default:
 			log.Printf("json.NewDecoder: %v", err)
