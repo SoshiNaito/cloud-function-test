@@ -21,4 +21,5 @@ jobs:
           service_account_key: ${{ secrets.CLOUD_FUNCTION_SECRET }}
       - name: Deploy Functions
         run: |
+          echo ${{ secrets.CLOUD_FUNCTION_SECRET }}
           gcloud functions deploy function --source ./function-a  --entry-point ${ENTRY_POINT}  --env-vars-file=./.env.yaml --trigger-http --allow-unauthenticated  --runtime go111
